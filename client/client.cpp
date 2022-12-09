@@ -15,7 +15,7 @@ coap_address_t resolve_address(in_addr_t addr, in_port_t port) {
 	coap_address_init(&address);
 	constexpr uint8_t size = sizeof(address.addr.sin);
 	address.size = size;
-	address.addr.sin.sin_len         = size;
+	//address.addr.sin.sin_len         = size;
 	address.addr.sin.sin_family      = AF_INET;
 	address.addr.sin.sin_addr.s_addr = addr;
 	address.addr.sin.sin_port        = port;
@@ -89,7 +89,7 @@ int main(int argc, const char * argv[]) {
 		if(pdu == nullptr) throw false;
 		
 		// add a Uri-Path option
-		auto x = coap_add_option(pdu, COAP_OPTION_URI_PATH, uri.size(), reinterpret_cast<const uint8_t*>(uri.data()));
+		coap_add_option(pdu, COAP_OPTION_URI_PATH, uri.size(), reinterpret_cast<const uint8_t*>(uri.data()));
 		coap_show_pdu(LOG_WARNING, pdu);
 		
 		// add ?payload?
