@@ -32,7 +32,7 @@ int main(void) {
 		coap_set_log_level(LOG_DEBUG);
 		
 		coap_address_t dst = resolve_address();
-		coap_endpoint_t *endpoint = coap_new_endpoint(ctx, &dst, COAP_PROTO_UDP); // pair with: coap_free_context(ctx);
+		coap_endpoint_t *endpoint = coap_new_endpoint(ctx, &dst, COAP_PROTO_DTLS); // pair with: coap_free_context(ctx);
 		if(endpoint == nullptr) throw false;
 		
 		coap_str_const_t *ruri = coap_make_str_const("hello");

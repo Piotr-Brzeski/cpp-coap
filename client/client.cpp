@@ -7,6 +7,7 @@
 
 #include <coap3/coap.h>
 #include <iostream>
+#include <string>
 
 #include <arpa/inet.h>
 coap_address_t resolve_address(in_addr_t addr, in_port_t port) {
@@ -21,47 +22,24 @@ coap_address_t resolve_address(in_addr_t addr, in_port_t port) {
 	return address;
 }
 
-
-
-#include <cstdio>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netdb.h>
-int resolve_address(const char *host, const char *service, coap_address_t *dst) {
-	struct addrinfo *res, *ainfo;
-	struct addrinfo hints;
-	int error, len=-1;
-
-	memset(&hints, 0, sizeof(hints));
-	memset(dst, 0, sizeof(*dst));
-	hints.ai_socktype = SOCK_DGRAM;
-	hints.ai_family = AF_UNSPEC;
-
-	error = getaddrinfo(host, service, &hints, &res);
-
-	if (error != 0) {
-		fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(error));
-		return error;
-	}
-
-	for (ainfo = res; ainfo != NULL; ainfo = ainfo->ai_next) {
-		switch (ainfo->ai_family) {
-		case AF_INET6:
-		case AF_INET:
-			len = dst->size = ainfo->ai_addrlen;
-			memcpy(&dst->addr.sin6, ainfo->ai_addr, dst->size);
-			goto finish;
-		default:
-			;
-		}
-	}
-
- finish:
-	freeaddrinfo(res);
-	return len;
+const coap_dtls_cpsk_info_t* verify_ih_callback(coap_str_const_t* hint, coap_session_t* c_session, void* arg) {
+	coap_dtls_cpsk_info_t *psk_info = static_cast<coap_dtls_cpsk_info_t*>(arg);
+	// Unused
+	(void)c_session;
+	coap_log(LOG_INFO, "Identity Hint '%.*s' provided\n", (int)hint->length, hint->s);
+	/* Just use the defined information for now as passed in by arg */
+	return psk_info;
 }
 
 bool have_response = false;
+
+constexpr auto dtls = true;
+coap_dtls_cpsk_t dtls_psk = {};
+//std::string client_sni;
+std::string const key = "EL1s1ckeogWykDpn";
+std::string const user = "Client_name";
+std::string const uri = "15004";
+//std::string const payload = "{\"9090\":\"Client_name\"}";
 
 int main(int argc, const char * argv[]) {
 	coap_startup();
@@ -73,10 +51,29 @@ int main(int argc, const char * argv[]) {
 		// Support large responses
 		coap_context_set_block_mode(ctx, COAP_BLOCK_USE_LIBCOAP | COAP_BLOCK_SINGLE_BODY);
 		
-		coap_address_t dst = resolve_address(inet_addr("127.0.0.1"), htons(5683));
-//		coap_address_t dst1 = dst;
-//		resolve_address("127.0.0.1", "5683", &dst);
-		coap_session_t *session = coap_new_client_session(ctx, nullptr, &dst, COAP_PROTO_UDP);
+		coap_address_t dst = resolve_address(inet_addr("172.17.10.90"), htons(5684));
+		
+		coap_session_t* session = nullptr;
+		if(dtls) {
+//			memset(&dtls_psk, 0, sizeof(dtls_psk));
+			dtls_psk.version = COAP_DTLS_CPSK_SETUP_VERSION;
+			dtls_psk.validate_ih_call_back = verify_ih_callback;
+			dtls_psk.ih_call_back_arg = &dtls_psk.psk_info;
+//				if (uri)
+//					memcpy(client_sni, uri, min(strlen(uri), sizeof(client_sni)-1));
+//				else
+//			client_sni = "localhost";
+//			dtls_psk.client_sni = client_sni.c_str();
+			dtls_psk.psk_info.identity.s = reinterpret_cast<const uint8_t*>(user.data());
+			dtls_psk.psk_info.identity.length = user.size();
+			dtls_psk.psk_info.key.s = reinterpret_cast<const uint8_t*>(key.data());
+			dtls_psk.psk_info.key.length = key.size();
+			
+			session = coap_new_client_session_psk2(ctx, NULL, &dst, COAP_PROTO_DTLS, &dtls_psk);
+		}
+		else {
+			session = coap_new_client_session(ctx, nullptr, &dst, COAP_PROTO_UDP);
+		}
 		if(session == nullptr) throw false;
 		
 		// coap_register_response_handler(ctx, response_handler);
@@ -92,8 +89,12 @@ int main(int argc, const char * argv[]) {
 		if(pdu == nullptr) throw false;
 		
 		// add a Uri-Path option
-		coap_add_option(pdu, COAP_OPTION_URI_PATH, 5, reinterpret_cast<const uint8_t *>("hello"));
+		auto x = coap_add_option(pdu, COAP_OPTION_URI_PATH, uri.size(), reinterpret_cast<const uint8_t*>(uri.data()));
 		coap_show_pdu(LOG_WARNING, pdu);
+		
+		// add ?payload?
+//		x = coap_add_data(pdu, payload.size(), reinterpret_cast<const uint8_t*>(payload.data()));
+//		coap_show_pdu(LOG_WARNING, pdu);
 		
 		// send the PDU
 		coap_send(session, pdu);
