@@ -11,6 +11,7 @@
 #include "exception.h"
 #include <coap3/coap.h>
 #include <arpa/inet.h>
+#include <optional>
 
 using namespace coap;
 
@@ -68,5 +69,9 @@ std::string session::send(std::string uri) {
 	if(message_id == COAP_INVALID_MID) {
 		throw coap::exception("Message send failed");
 	}
-	return m_client.process(message_id);
+	std::optional<std::string> response;
+	::coap_session_set_app_data(m_session, &response);
+	m_client.process(response);
+	::coap_session_set_app_data(m_session, nullptr);
+	return *response;
 }

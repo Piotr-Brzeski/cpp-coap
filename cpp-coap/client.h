@@ -10,10 +10,10 @@
 
 #include "context.h"
 #include "session.h"
+#include <string>
+#include <optional>
 
 namespace coap {
-
-class session;
 
 class client: public context {
 public:
@@ -21,7 +21,7 @@ public:
 	
 	session create_session(const char* ip, int port);
 	
-	std::string process(int message_id);
+	void process(std::optional<std::string>& response);
 };
 
 }
