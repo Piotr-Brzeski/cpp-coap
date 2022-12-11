@@ -21,13 +21,11 @@ public:
 	context();
 	~context();
 	
-	std::string process(int message_id);
-	
 	operator ::coap_context_t*() {
 		return m_context;
 	}
 	
-private:
+protected:
 	::coap_context_t* m_context;
 };
 

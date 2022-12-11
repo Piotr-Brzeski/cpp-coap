@@ -7,7 +7,7 @@
 //
 
 #include "session.h"
-#include "context.h"
+#include "client.h"
 #include "exception.h"
 #include <coap3/coap.h>
 #include <arpa/inet.h>
@@ -31,18 +31,27 @@ coap_address_t resolve_address(const char* ip, int port) {
 
 }
 
-session::session(context& ctx, const char* ip, int port)
-	: m_context(ctx)
+session::session(client& client, const char* ip, int port)
+	: m_client(client)
 {
 	coap_address_t address = resolve_address(ip, port);
-	m_session = ::coap_new_client_session(m_context, nullptr, &address, COAP_PROTO_UDP);
+	m_session = ::coap_new_client_session(m_client, nullptr, &address, COAP_PROTO_UDP);
 	if(m_session == nullptr) {
 		throw coap::exception("Session creation failed");
 	}
 }
 
 session::~session() {
-	::coap_session_release(m_session);
+	if(m_session != nullptr) {
+		::coap_session_release(m_session);
+	}
+}
+
+session::session(session&& session)
+	: m_client(session.m_client)
+	, m_session(session.m_session)
+{
+	session.m_session = nullptr;
 }
 
 std::string session::send(std::string uri) {
@@ -59,5 +68,5 @@ std::string session::send(std::string uri) {
 	if(message_id == COAP_INVALID_MID) {
 		throw coap::exception("Message send failed");
 	}
-	return m_context.process(message_id);
+	return m_client.process(message_id);
 }

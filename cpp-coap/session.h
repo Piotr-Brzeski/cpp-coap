@@ -13,19 +13,24 @@ struct coap_session_t;
 
 namespace coap {
 
-class context;
+class client;
 
 class session {
 public:
 //	enum class type { UDP, DTLS };
 	
-	session(context& ctx, const char* ip, int port);
+	session(client& ctx, const char* ip, int port);
 	~session();
+	
+	session(session&& session);
+	session(session const&) = delete;
+	session& operator=(session const&) = delete;
+	session& operator=(session&& session) = delete;
 	
 	std::string send(std::string uri);
 	
 private:
-	context&          m_context;
+	client&           m_client;
 	::coap_session_t* m_session;
 };
 

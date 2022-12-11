@@ -6,14 +6,13 @@
 //  Copyright © 2022 Brzeski.net. All rights reserved.
 //
 
-#include <cpp-coap/context.h>
-#include <cpp-coap/session.h>
+#include <cpp-coap/client.h>
 #include <iostream>
 
 int main(int argc, const char * argv[]) {
 	try {
-		auto context = coap::context();
-		auto session = coap::session(context, "127.0.0.1", 5683);
+		auto client = coap::client();
+		auto session = client.create_session("127.0.0.1", 5683);
 		auto response = session.send("hello");
 		std::cout << "Response: [" << response << "]" << std::endl;
 		return 0;
