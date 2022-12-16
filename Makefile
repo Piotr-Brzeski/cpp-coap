@@ -7,8 +7,8 @@ SERVER_SOURCES=server/server.cpp
 CLIENT_NAME=client
 CLIENT_SOURCES=client/client.cpp
 
-COMPILER_OPTIONS=-O3 -I/opt/homebrew/include -I.
-LINKER_OPTIONS=-L/opt/homebrew/lib -lcoap-3-openssl
+COMPILER_OPTIONS=-O3 -I.
+LINKER_OPTIONS=-lcoap-3-gnutls
 
 ################################
 
@@ -19,11 +19,11 @@ all: $(BUILD_DIR)/$(LIBRARY_NAME) $(BUILD_DIR)/$(SERVER_NAME) $(BUILD_DIR)/$(CLI
 
 $(BUILD_DIR)/$(SERVER_NAME): $(SERVER_SOURCES:%.cpp=$(INTERMEDIATES_DIR)/%.o) $(BUILD_DIR)/$(LIBRARY_NAME)
 	@mkdir -p `dirname "$@"`
-	g++ $(LINKER_OPTIONS) -o $@ $^ 
+	g++ -o $@ $^ $(LINKER_OPTIONS)
 
 $(BUILD_DIR)/$(CLIENT_NAME): $(CLIENT_SOURCES:%.cpp=$(INTERMEDIATES_DIR)/%.o) $(BUILD_DIR)/$(LIBRARY_NAME)
 	@mkdir -p `dirname "$@"`
-	g++ $(LINKER_OPTIONS) -o $@ $^ 
+	g++ -o $@ $^ $(LINKER_OPTIONS)
 
 $(INTERMEDIATES_DIR)/%.o: %.cpp
 	@mkdir -p `dirname "$@"`
