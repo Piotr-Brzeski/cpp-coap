@@ -12,7 +12,7 @@
 int main(int argc, const char * argv[]) {
 	try {
 		auto client = coap::client();
-		auto session = client.create_session("127.0.0.1", 5683);
+		auto session = client.create_session("127.0.0.1", 5684, "name", "key");
 		auto response = session.send("hello");
 		std::cout << "Response: [" << response << "]" << std::endl;
 		return 0;
