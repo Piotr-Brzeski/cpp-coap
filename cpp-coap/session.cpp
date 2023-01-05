@@ -49,7 +49,7 @@ session::session(client& client, const char* ip, int port)
 session::session(client& client, const char* ip, int port, std::string const& identity, std::string const& key)
 	: m_client(client)
 {
-	if(!coap_dtls_is_supported()) {
+	if(coap_dtls_is_supported() != 1) { // || coap_dtls_psk_is_supported() != 1) {
 		throw coap::exception("Session creation failed - DTLS is not supported.");
 	}
 	coap_address_t address = resolve_address(ip, port);

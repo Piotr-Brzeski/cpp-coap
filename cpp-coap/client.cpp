@@ -39,7 +39,7 @@ session client::create_session(const char *ip, int port, std::string const& iden
 }
 
 void client::process(std::optional<std::string>& response) {
-	constexpr std::uint32_t timeout_ms = 1000;
+	constexpr std::uint32_t timeout_ms = 10000;
 	auto timeout = timeout_ms;
 	while(timeout > 0) {
 		auto time = ::coap_io_process(m_context, timeout);
@@ -53,5 +53,6 @@ void client::process(std::optional<std::string>& response) {
 			timeout = 0;
 		}
 	}
-	throw coap::exception("no response from server.");
+	throw coap::exception("No response from server.");
 }
+
