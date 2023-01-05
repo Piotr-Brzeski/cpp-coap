@@ -398,7 +398,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = "-lcoap-3-openssl";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -408,7 +411,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = "-lcoap-3-openssl";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -553,7 +559,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = "-lcoap-3-openssl";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -563,7 +572,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = "-lcoap-3-openssl";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -573,7 +585,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = "-lcoap-3-openssl";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -583,7 +598,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = "-lcoap-3-openssl";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

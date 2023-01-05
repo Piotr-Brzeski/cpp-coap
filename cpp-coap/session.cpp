@@ -13,6 +13,26 @@
 #include <arpa/inet.h>
 #include <optional>
 
+#ifdef __APPLE__
+// On macOS OpenSSL is used and unsafe renegotiation is disabled by default
+#include <openssl/ssl.h>
+namespace {
+void allow_openssl_unsafe_renegotiation(::coap_session_t* session) {
+	auto tls_library_type = COAP_TLS_LIBRARY_NOTLS;
+	auto tls = coap_session_get_tls(session, &tls_library_type);
+	if(tls_library_type == COAP_TLS_LIBRARY_OPENSSL) {
+		SSL_set_options(static_cast<SSL*>(tls), SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION);
+	}
+}
+}
+#else
+// On Linux GNUTLS is used, and no reconfiguration is needed
+namespace {
+void allow_openssl_unsafe_renegotiation(::coap_session_t*) {
+}
+}
+#endif
+
 using namespace coap;
 
 namespace {
@@ -58,6 +78,7 @@ session::session(client& client, const char* ip, int port, std::string const& id
 	if(m_session == nullptr) {
 		throw coap::exception("DTLS Session creation failed");
 	}
+	allow_openssl_unsafe_renegotiation(m_session);
 }
 
 session::~session() {
