@@ -9,7 +9,7 @@
           "cwd": "${workspaceFolder}",
           "externalConsole": false,
           "MIMode": "gdb",
-          "program": "${workspaceFolder}/client"
+          "program": "${workspaceFolder}/dtls-client"
       }
   ]
 }

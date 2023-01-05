@@ -7,6 +7,9 @@ SERVER_SOURCES=server/server.cpp
 CLIENT_NAME=client
 CLIENT_SOURCES=client/client.cpp
 
+DTLS_CLIENT_NAME=dtls-client
+DTLS_CLIENT_SOURCES=dtls-client/dtls-client.cpp
+
 COMPILER_OPTIONS=-O3 -I.
 LINKER_OPTIONS=-lcoap-3-gnutls
 
@@ -15,13 +18,17 @@ LINKER_OPTIONS=-lcoap-3-gnutls
 BUILD_DIR=BUILD
 INTERMEDIATES_DIR=$(BUILD_DIR)/Intermediates
 
-all: $(BUILD_DIR)/$(LIBRARY_NAME) $(BUILD_DIR)/$(SERVER_NAME) $(BUILD_DIR)/$(CLIENT_NAME)
+all: $(BUILD_DIR)/$(LIBRARY_NAME) $(BUILD_DIR)/$(SERVER_NAME) $(BUILD_DIR)/$(CLIENT_NAME) $(BUILD_DIR)/$(DTLS_CLIENT_NAME)
 
 $(BUILD_DIR)/$(SERVER_NAME): $(SERVER_SOURCES:%.cpp=$(INTERMEDIATES_DIR)/%.o) $(BUILD_DIR)/$(LIBRARY_NAME)
 	@mkdir -p `dirname "$@"`
 	g++ -o $@ $^ $(LINKER_OPTIONS)
 
 $(BUILD_DIR)/$(CLIENT_NAME): $(CLIENT_SOURCES:%.cpp=$(INTERMEDIATES_DIR)/%.o) $(BUILD_DIR)/$(LIBRARY_NAME)
+	@mkdir -p `dirname "$@"`
+	g++ -o $@ $^ $(LINKER_OPTIONS)
+
+$(BUILD_DIR)/$(DTLS_CLIENT_NAME): $(DTLS_CLIENT_SOURCES:%.cpp=$(INTERMEDIATES_DIR)/%.o) $(BUILD_DIR)/$(LIBRARY_NAME)
 	@mkdir -p `dirname "$@"`
 	g++ -o $@ $^ $(LINKER_OPTIONS)
 
