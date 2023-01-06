@@ -15,6 +15,11 @@
 
 namespace coap {
 
+struct response {
+	int         code;
+	std::string content;
+};
+
 class client: public context {
 public:
 	client();
@@ -24,7 +29,7 @@ public:
 	/// Create DTLS session
 	session create_session(const char* ip, int port, std::string const& identity, std::string const& key);
 	
-	void process(std::optional<std::string>& response);
+	void process(std::optional<response>& response);
 };
 
 }

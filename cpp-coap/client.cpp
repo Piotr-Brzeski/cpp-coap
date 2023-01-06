@@ -14,15 +14,16 @@ using namespace coap;
 
 client::client() {
 	::coap_register_response_handler(m_context, [](coap_session_t* session, coap_pdu_t const*, coap_pdu_t const* received, coap_mid_t const message_id) {
-		auto response = static_cast<std::optional<std::string>*>(::coap_session_get_app_data(session));
-		std::size_t response_len = 0;
-		uint8_t const* response_data = nullptr;
-		auto is_data = ::coap_get_data(received, &response_len, &response_data);
-		if(is_data == 1) {
-			*response = std::string(reinterpret_cast<char const*>(response_data), response_len);
-		}
-		else {
-			*response = std::string();
+		auto response = static_cast<std::optional<coap::response>*>(::coap_session_get_app_data(session));
+		auto code = coap_pdu_get_code(received);
+		*response = coap::response{code};
+		if(code == COAP_RESPONSE_CODE_CONTENT) {
+			std::size_t response_len = 0;
+			uint8_t const* response_data = nullptr;
+			auto is_data = ::coap_get_data(received, &response_len, &response_data);
+			if(is_data == 1) {
+				(*response)->content.assign(reinterpret_cast<char const*>(response_data), response_len);
+			}
 		}
 		return COAP_RESPONSE_OK;
 	});
@@ -38,7 +39,7 @@ session client::create_session(const char *ip, int port, std::string const& iden
 	return session(*this, ip, port, identity, key);
 }
 
-void client::process(std::optional<std::string>& response) {
+void client::process(std::optional<response>& response) {
 	constexpr std::uint32_t timeout_ms = 10000;
 	auto timeout = timeout_ms;
 	while(timeout > 0) {
@@ -53,6 +54,5 @@ void client::process(std::optional<std::string>& response) {
 			timeout = 0;
 		}
 	}
-	throw coap::exception("No response from server.");
 }
 

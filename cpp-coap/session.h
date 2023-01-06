@@ -27,10 +27,13 @@ public:
 	session(session const&) = delete;
 	session& operator=(session const&) = delete;
 	session& operator=(session&& session);
-	
-	std::string send(std::string uri);
+
+	std::string get(std::string const& uri);
 	
 private:
+	void send(std::string const& uri);
+	std::string process();
+	
 	client&           m_client;
 	::coap_session_t* m_session = nullptr;
 };

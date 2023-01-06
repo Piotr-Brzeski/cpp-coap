@@ -12,6 +12,7 @@
 #include <coap3/coap.h>
 #include <arpa/inet.h>
 #include <optional>
+#include <array>
 
 #ifdef __APPLE__
 // On macOS OpenSSL is used and unsafe renegotiation is disabled by default
@@ -49,6 +50,15 @@ coap_address_t resolve_address(const char* ip, int port) {
 	address.addr.sin.sin_port = net_port;
 	return address;
 }
+
+struct opt_list {
+	~opt_list() {
+		if(value) {
+			coap_delete_optlist(value);
+		}
+	}
+	coap_optlist_t* value = nullptr;
+};
 
 //coap_dtls_cpsk_info_t const* verify_ih_callback(coap_str_const_t*, coap_session_t*, void *arg) {
 //	return static_cast<coap_dtls_cpsk_info_t*>(arg);
@@ -105,23 +115,79 @@ session& session::operator=(session &&session) {
 	return *this;
 }
 
-std::string session::send(std::string uri) {
+std::string session::get(std::string const& uri) {
+	send(uri);
+	return process();
+}
+
+void session::send(std::string const& uri) {
 	auto message = coap_pdu_init(COAP_MESSAGE_CON, COAP_REQUEST_CODE_GET,
 	                             coap_new_message_id(m_session), coap_session_max_pdu_size(m_session));
 	if(message == nullptr) {
 		throw coap::exception("Message creation failed");
 	}
-	auto result = coap_add_option(message, COAP_OPTION_URI_PATH, uri.size(), reinterpret_cast<const uint8_t*>(uri.data()));
-	if(result == 0) {
-		throw coap::exception("Set message uri failed");
+	auto optlist = opt_list();
+	if(!uri.empty()) {
+		constexpr std::size_t static_buffer_size = 16;
+		std::array<std::uint8_t, static_buffer_size> static_buffer;
+		std::uint8_t* buffer = static_buffer.data();
+		auto buffer_size = static_buffer_size;
+		std::unique_ptr<std::uint8_t[]> dynamic_buffer;
+		if(uri.size() > static_buffer_size - 2) {
+			//TODO: Remove - leave for now to tune the static buffer size
+			assert(false);
+			buffer_size = uri.size() + 2;
+			dynamic_buffer = std::make_unique<std::uint8_t[]>(buffer_size);
+			buffer = dynamic_buffer.get();
+		}
+		auto number_of_uri_components = coap_split_path(reinterpret_cast<std::uint8_t const*>(uri.c_str()), uri.size(), buffer, &buffer_size);
+		while(number_of_uri_components--) {
+			auto value = coap_opt_value(buffer);
+			if(value == nullptr) {
+				throw coap::exception("Set message uri failed - value is null");
+			}
+			auto length = coap_opt_length(buffer);
+			auto option = coap_new_optlist(COAP_OPTION_URI_PATH, length, value);
+			if(option == nullptr) {
+				throw coap::exception("Set message uri failed - optlist creation failed");
+			}
+			auto res = coap_insert_optlist(&optlist.value, option);
+			if(res != 1) {
+				throw coap::exception("Set message uri failed - optlist insert failed");
+			}
+			auto size = coap_opt_size(buffer);
+			buffer += size;
+		}
+		auto res = coap_add_optlist_pdu(message, &optlist.value);
+		if(res != 1) {
+			throw coap::exception("Set message uri failed - optlist add failed");
+		}
 	}
 	auto message_id = ::coap_send(m_session, message);
 	if(message_id == COAP_INVALID_MID) {
 		throw coap::exception("Message send failed");
 	}
-	std::optional<std::string> response;
+}
+
+std::string session::process() {
+	std::optional<coap::response> response;
 	::coap_session_set_app_data(m_session, &response);
 	m_client.process(response);
 	::coap_session_set_app_data(m_session, nullptr);
-	return *response;
+	if(!response) {
+		throw coap::exception("No response from server.");
+	}
+	if(response->content.empty()) {
+		auto response_class = COAP_RESPONSE_CLASS(response->code);
+		if(response_class != 2) {
+			auto error_message = std::to_string(response_class*100 + (response->code & 31));
+			auto code_phrase = coap_response_phrase(response->code);
+			if(code_phrase != nullptr) {
+				error_message += " ";
+				error_message += code_phrase;
+			}
+			throw coap::exception(error_message);
+		}
+	}
+	return response->content;
 }
