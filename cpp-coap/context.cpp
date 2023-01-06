@@ -3,7 +3,7 @@
 //  cpp-coap
 //
 //  Created by Piotr Brzeski on 2022-12-10.
-//  Copyright © 2022 Brzeski.net. All rights reserved.
+//  Copyright © 2023 Brzeski.net. All rights reserved.
 //
 
 #include "context.h"
@@ -19,6 +19,7 @@ public:
 	init() {
 		::coap_startup();
 //		::coap_set_log_level(LOG_DEBUG);
+//		::coap_dtls_set_log_level(LOG_DEBUG);
 	}
 	~init() {
 		::coap_cleanup();
@@ -39,4 +40,3 @@ context::context() {
 context::~context() {
 	::coap_free_context(m_context);
 }
-

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E23892E22966FEB500136A54 /* dtls-client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E23892E12966FEB500136A54 /* dtls-client.cpp */; };
+		E23892E32966FFCC00136A54 /* libcpp-coap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E24D1DD32944918100DC293B /* libcpp-coap.a */; };
 		E24D1DE0294491DE00DC293B /* exception.h in Headers */ = {isa = PBXBuildFile; fileRef = E24D1DDE294491DE00DC293B /* exception.h */; };
 		E24D1DE42944997C00DC293B /* session.h in Headers */ = {isa = PBXBuildFile; fileRef = E24D1DE22944997C00DC293B /* session.h */; };
 		E24D1DE52944997C00DC293B /* session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E24D1DE32944997C00DC293B /* session.cpp */; };
@@ -23,6 +25,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		E23892E42966FFCC00136A54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E24D1DCB2944918100DC293B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E24D1DD22944918100DC293B;
+			remoteInfo = "cpp-coap";
+		};
 		E24D1E03294539C900DC293B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E24D1DCB2944918100DC293B /* Project object */;
@@ -40,6 +49,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		E23892D82966FEA500136A54 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		E24D1DED2945383200DC293B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -61,6 +79,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E23892DA2966FEA500136A54 /* dtls-client */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "dtls-client"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E23892E12966FEB500136A54 /* dtls-client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "dtls-client.cpp"; sourceTree = "<group>"; };
 		E24D1DD32944918100DC293B /* libcpp-coap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcpp-coap.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E24D1DDE294491DE00DC293B /* exception.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = exception.h; path = "cpp-coap/exception.h"; sourceTree = "<group>"; };
 		E24D1DE22944997C00DC293B /* session.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = session.h; path = "cpp-coap/session.h"; sourceTree = "<group>"; };
@@ -78,6 +98,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E23892D72966FEA500136A54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E23892E32966FFCC00136A54 /* libcpp-coap.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E24D1DD12944918100DC293B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -104,12 +132,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E23892DB2966FEA500136A54 /* dtls-client */ = {
+			isa = PBXGroup;
+			children = (
+				E23892E12966FEB500136A54 /* dtls-client.cpp */,
+			);
+			path = "dtls-client";
+			sourceTree = "<group>";
+		};
 		E24D1DCA2944918100DC293B = {
 			isa = PBXGroup;
 			children = (
 				E24D1DEA294537F600DC293B /* cpp-coap */,
 				E24D1DF02945383200DC293B /* server */,
 				E24D1DFB294538ED00DC293B /* client */,
+				E23892DB2966FEA500136A54 /* dtls-client */,
 				E24D1DD42944918100DC293B /* Products */,
 				E24D1E01294539C900DC293B /* Frameworks */,
 			);
@@ -121,6 +158,7 @@
 				E24D1DD32944918100DC293B /* libcpp-coap.a */,
 				E24D1DEF2945383200DC293B /* server */,
 				E24D1DFA294538ED00DC293B /* client */,
+				E23892DA2966FEA500136A54 /* dtls-client */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -182,6 +220,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		E23892D92966FEA500136A54 /* dtls-client */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E23892E02966FEA500136A54 /* Build configuration list for PBXNativeTarget "dtls-client" */;
+			buildPhases = (
+				E23892D62966FEA500136A54 /* Sources */,
+				E23892D72966FEA500136A54 /* Frameworks */,
+				E23892D82966FEA500136A54 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E23892E52966FFCC00136A54 /* PBXTargetDependency */,
+			);
+			name = "dtls-client";
+			productName = "dtls-client";
+			productReference = E23892DA2966FEA500136A54 /* dtls-client */;
+			productType = "com.apple.product-type.tool";
+		};
 		E24D1DD22944918100DC293B /* cpp-coap */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E24D1DD72944918100DC293B /* Build configuration list for PBXNativeTarget "cpp-coap" */;
@@ -245,6 +301,9 @@
 				LastUpgradeCheck = 1410;
 				ORGANIZATIONNAME = Brzeski.net;
 				TargetAttributes = {
+					E23892D92966FEA500136A54 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					E24D1DD22944918100DC293B = {
 						CreatedOnToolsVersion = 14.1;
 					};
@@ -272,11 +331,20 @@
 				E24D1DD22944918100DC293B /* cpp-coap */,
 				E24D1DEE2945383200DC293B /* server */,
 				E24D1DF9294538ED00DC293B /* client */,
+				E23892D92966FEA500136A54 /* dtls-client */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E23892D62966FEA500136A54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E23892E22966FEB500136A54 /* dtls-client.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E24D1DD02944918100DC293B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -307,6 +375,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		E23892E52966FFCC00136A54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E24D1DD22944918100DC293B /* cpp-coap */;
+			targetProxy = E23892E42966FFCC00136A54 /* PBXContainerItemProxy */;
+		};
 		E24D1E04294539C900DC293B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E24D1DD22944918100DC293B /* cpp-coap */;
@@ -320,13 +393,39 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		E23892DE2966FEA500136A54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E23892DF2966FEA500136A54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		E24D1DD52944918100DC293B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -356,7 +455,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -387,7 +486,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -417,7 +516,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -460,7 +559,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = "-lcoap-3-openssl";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -470,7 +572,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = "-lcoap-3-openssl";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -480,7 +585,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = "-lcoap-3-openssl";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -490,7 +598,10 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = "-lcoap-3-openssl";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -498,6 +609,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E23892E02966FEA500136A54 /* Build configuration list for PBXNativeTarget "dtls-client" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E23892DE2966FEA500136A54 /* Debug */,
+				E23892DF2966FEA500136A54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E24D1DCE2944918100DC293B /* Build configuration list for PBXProject "cpp-coap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

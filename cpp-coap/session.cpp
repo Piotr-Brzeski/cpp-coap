@@ -3,7 +3,7 @@
 //  cpp-coap
 //
 //  Created by Piotr Brzeski on 2022-12-10.
-//  Copyright © 2022 Brzeski.net. All rights reserved.
+//  Copyright © 2023 Brzeski.net. All rights reserved.
 //
 
 #include "session.h"
@@ -12,6 +12,26 @@
 #include <coap3/coap.h>
 #include <arpa/inet.h>
 #include <optional>
+
+#ifdef __APPLE__
+// On macOS OpenSSL is used and unsafe renegotiation is disabled by default
+#include <openssl/ssl.h>
+namespace {
+void allow_openssl_unsafe_renegotiation(::coap_session_t* session) {
+	auto tls_library_type = COAP_TLS_LIBRARY_NOTLS;
+	auto tls = coap_session_get_tls(session, &tls_library_type);
+	if(tls_library_type == COAP_TLS_LIBRARY_OPENSSL) {
+		SSL_set_options(static_cast<SSL*>(tls), SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION);
+	}
+}
+}
+#else
+// On Linux GNUTLS is used, and no reconfiguration is needed
+namespace {
+void allow_openssl_unsafe_renegotiation(::coap_session_t*) {
+}
+}
+#endif
 
 using namespace coap;
 
@@ -30,6 +50,10 @@ coap_address_t resolve_address(const char* ip, int port) {
 	return address;
 }
 
+//coap_dtls_cpsk_info_t const* verify_ih_callback(coap_str_const_t*, coap_session_t*, void *arg) {
+//	return static_cast<coap_dtls_cpsk_info_t*>(arg);
+//}
+
 }
 
 session::session(client& client, const char* ip, int port)
@@ -38,8 +62,23 @@ session::session(client& client, const char* ip, int port)
 	coap_address_t address = resolve_address(ip, port);
 	m_session = ::coap_new_client_session(m_client, nullptr, &address, COAP_PROTO_UDP);
 	if(m_session == nullptr) {
-		throw coap::exception("Session creation failed");
+		throw coap::exception("UDP Session creation failed");
 	}
+}
+
+session::session(client& client, const char* ip, int port, std::string const& identity, std::string const& key)
+	: m_client(client)
+{
+	if(coap_dtls_is_supported() != 1) { // || coap_dtls_psk_is_supported() != 1) {
+		throw coap::exception("Session creation failed - DTLS is not supported.");
+	}
+	coap_address_t address = resolve_address(ip, port);
+	m_session = ::coap_new_client_session_psk(m_client, nullptr, &address, COAP_PROTO_DTLS, identity.c_str(),
+	                                          reinterpret_cast<std::uint8_t const*>(key.data()), static_cast<unsigned int>(key.size()));
+	if(m_session == nullptr) {
+		throw coap::exception("DTLS Session creation failed");
+	}
+	allow_openssl_unsafe_renegotiation(m_session);
 }
 
 session::~session() {
@@ -53,6 +92,17 @@ session::session(session&& session)
 	, m_session(session.m_session)
 {
 	session.m_session = nullptr;
+}
+
+session& session::operator=(session &&session) {
+	if(this != &session) {
+		if(m_session != nullptr) {
+			::coap_session_release(m_session);
+		}
+		m_session = session.m_session;
+		session.m_session = nullptr;
+	}
+	return *this;
 }
 
 std::string session::send(std::string uri) {

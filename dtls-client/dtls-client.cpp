@@ -1,8 +1,8 @@
 //
-//  client.cpp
-//  client
+//  dtls-client.cpp
+//  dtlc-client
 //
-//  Created by Piotr Brzeski on 2022-12-10.
+//  Created by Piotr Brzeski on 2023-01-05.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
 //
 
@@ -12,9 +12,9 @@
 int main(int argc, const char * argv[]) {
 	try {
 		auto client = coap::client();
-		auto session = client.create_session("127.0.0.1", 5683);
+		auto session = client.create_session("127.0.0.1", 5684, "name", "key");
 		auto response = session.send("hello");
-		std::cout << "Response: '" << response << "'" << std::endl;
+		std::cout << "Response: [" << response << "]" << std::endl;
 		return 0;
 	}
 	catch(std::exception& e) {
