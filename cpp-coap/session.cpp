@@ -116,13 +116,24 @@ session& session::operator=(session &&session) {
 }
 
 std::string session::get(std::string const& uri) {
-	send(uri);
+	static const std::string empty_string;
+	send(method::get, uri, empty_string);
 	return process();
 }
 
-void session::send(std::string const& uri) {
-	auto message = coap_pdu_init(COAP_MESSAGE_CON, COAP_REQUEST_CODE_GET,
-	                             coap_new_message_id(m_session), coap_session_max_pdu_size(m_session));
+void session::put(std::string const& uri, std::string const& data) {
+	send(method::put, uri, data);
+	process();
+}
+
+void session::send(method method, std::string const& uri, std::string const& data) {
+	auto coap_method = [method](){switch(method) {
+		case method::get: return COAP_REQUEST_CODE_GET;
+		case method::put: return COAP_REQUEST_CODE_PUT;
+	}}();
+	auto message_id = coap_new_message_id(m_session);
+	auto max_pdu_size = coap_session_max_pdu_size(m_session);
+	auto message = coap_pdu_init(COAP_MESSAGE_CON, coap_method, message_id, max_pdu_size);
 	if(message == nullptr) {
 		throw coap::exception("Message creation failed");
 	}
@@ -163,8 +174,14 @@ void session::send(std::string const& uri) {
 			throw coap::exception("Set message uri failed - optlist add failed");
 		}
 	}
-	auto message_id = ::coap_send(m_session, message);
-	if(message_id == COAP_INVALID_MID) {
+	if(!data.empty()) {
+		auto res = coap_add_data(message, data.size(), reinterpret_cast<std::uint8_t const*>(data.data()));
+		if(res != 1) {
+			throw coap::exception("Set message data failed");
+		}
+	}
+	auto sent_message_id = ::coap_send(m_session, message);
+	if(sent_message_id == COAP_INVALID_MID) {
 		throw coap::exception("Message send failed");
 	}
 }

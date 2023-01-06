@@ -29,9 +29,11 @@ public:
 	session& operator=(session&& session);
 
 	std::string get(std::string const& uri);
+	void put(std::string const& uri, std::string const& data);
 	
 private:
-	void send(std::string const& uri);
+	enum class method { get, put };
+	void send(method method, std::string const& uri, std::string const& data);
 	std::string process();
 	
 	client&           m_client;
