@@ -3,7 +3,7 @@
 //  cpp-coap
 //
 //  Created by Piotr Brzeski on 2022-12-11.
-//  Copyright © 2022 Brzeski.net. All rights reserved.
+//  Copyright © 2022-2023 Brzeski.net. All rights reserved.
 //
 
 #pragma once

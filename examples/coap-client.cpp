@@ -1,6 +1,6 @@
 //
-//  client.cpp
-//  client
+//  coap-client.cpp
+//  coap-client
 //
 //  Created by Piotr Brzeski on 2022-12-10.
 //  Copyright © 2023 Brzeski.net. All rights reserved.
@@ -13,7 +13,7 @@ int main(int argc, const char * argv[]) {
 	try {
 		auto client = coap::client();
 		auto session = client.create_session("127.0.0.1", 5683);
-		auto response = session.send("hello");
+		auto response = session.get("hello");
 		std::cout << "Response: '" << response << "'" << std::endl;
 		return 0;
 	}

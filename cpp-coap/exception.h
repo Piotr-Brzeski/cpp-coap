@@ -3,7 +3,7 @@
 //  cpp-coap
 //
 //  Created by Piotr Brzeski on 2022-12-10.
-//  Copyright © 2022 Brzeski.net. All rights reserved.
+//  Copyright © 2022-2023 Brzeski.net. All rights reserved.
 //
 
 #pragma once
@@ -14,4 +14,3 @@ namespace coap {
 using exception = std::runtime_error;
 
 }
-

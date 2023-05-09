@@ -1,9 +1,9 @@
 //
-//  main.cpp
-//  server
+//  coap-server.cpp
+//  coap-server
 //
 //  Created by Piotr Brzeski on 2022-12-06.
-//  Copyright © 2022 Brzeski.net. All rights reserved.
+//  Copyright © 2022-2023 Brzeski.net. All rights reserved.
 //
 
 #include <cpp-coap/server.h>

@@ -1,14 +1,14 @@
 LIBRARY_NAME=libcpp-coap.a
 LIBRARY_SOURCES=cpp-coap/context.cpp cpp-coap/session.cpp cpp-coap/client.cpp cpp-coap/server.cpp
 
-SERVER_NAME=server
-SERVER_SOURCES=server/server.cpp
+SERVER_NAME=coap-server
+SERVER_SOURCES=exaples/coap-server.cpp
 
-CLIENT_NAME=client
-CLIENT_SOURCES=client/client.cpp
+CLIENT_NAME=coap-client
+CLIENT_SOURCES=examples/coap-client.cpp
 
-DTLS_CLIENT_NAME=dtls-client
-DTLS_CLIENT_SOURCES=dtls-client/dtls-client.cpp
+DTLS_CLIENT_NAME=coap-dtls-client
+DTLS_CLIENT_SOURCES=examples/coap-dtls-client.cpp
 
 COMPILER_OPTIONS=-O3 -I.
 LINKER_OPTIONS=-lcoap-3-gnutls

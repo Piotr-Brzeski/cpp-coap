@@ -7,39 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E23892E22966FEB500136A54 /* dtls-client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E23892E12966FEB500136A54 /* dtls-client.cpp */; };
-		E23892E32966FFCC00136A54 /* libcpp-coap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E24D1DD32944918100DC293B /* libcpp-coap.a */; };
+		E246464C2A0AD17D008F9704 /* coap-client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E246464B2A0AD17D008F9704 /* coap-client.cpp */; };
+		E246464D2A0AD33D008F9704 /* libcpp-coap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E24D1DD32944918100DC293B /* libcpp-coap.a */; };
+		E246465C2A0AD38F008F9704 /* coap-dtls-client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E246465B2A0AD38F008F9704 /* coap-dtls-client.cpp */; };
+		E246465D2A0AD3C4008F9704 /* libcpp-coap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E24D1DD32944918100DC293B /* libcpp-coap.a */; };
+		E246466C2A0AD4AC008F9704 /* coap-server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E246466B2A0AD4AC008F9704 /* coap-server.cpp */; };
+		E246466D2A0AD556008F9704 /* libcpp-coap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E24D1DD32944918100DC293B /* libcpp-coap.a */; };
 		E24D1DE0294491DE00DC293B /* exception.h in Headers */ = {isa = PBXBuildFile; fileRef = E24D1DDE294491DE00DC293B /* exception.h */; };
 		E24D1DE42944997C00DC293B /* session.h in Headers */ = {isa = PBXBuildFile; fileRef = E24D1DE22944997C00DC293B /* session.h */; };
 		E24D1DE52944997C00DC293B /* session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E24D1DE32944997C00DC293B /* session.cpp */; };
 		E24D1DE82944E46400DC293B /* context.h in Headers */ = {isa = PBXBuildFile; fileRef = E24D1DE62944E46400DC293B /* context.h */; };
 		E24D1DE92944E46400DC293B /* context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E24D1DE72944E46400DC293B /* context.cpp */; };
-		E24D1DF22945383200DC293B /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E24D1DF12945383200DC293B /* server.cpp */; };
-		E24D1DFD294538ED00DC293B /* client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E24D1DFC294538ED00DC293B /* client.cpp */; };
-		E24D1E02294539C900DC293B /* libcpp-coap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E24D1DD32944918100DC293B /* libcpp-coap.a */; };
 		E2571EAD294611110086F3A8 /* client.h in Headers */ = {isa = PBXBuildFile; fileRef = E2571EAB294611110086F3A8 /* client.h */; };
 		E2571EAE294611110086F3A8 /* client.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2571EAC294611110086F3A8 /* client.cpp */; };
 		E2571EB129465FAD0086F3A8 /* server.h in Headers */ = {isa = PBXBuildFile; fileRef = E2571EAF29465FAD0086F3A8 /* server.h */; };
 		E2571EB229465FAD0086F3A8 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2571EB029465FAD0086F3A8 /* server.cpp */; };
-		E2571EB329466B9D0086F3A8 /* libcpp-coap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E24D1DD32944918100DC293B /* libcpp-coap.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E23892E42966FFCC00136A54 /* PBXContainerItemProxy */ = {
+		E246464E2A0AD33D008F9704 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E24D1DCB2944918100DC293B /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E24D1DD22944918100DC293B;
 			remoteInfo = "cpp-coap";
 		};
-		E24D1E03294539C900DC293B /* PBXContainerItemProxy */ = {
+		E246465E2A0AD3C4008F9704 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E24D1DCB2944918100DC293B /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E24D1DD22944918100DC293B;
 			remoteInfo = "cpp-coap";
 		};
-		E2571EB429466B9D0086F3A8 /* PBXContainerItemProxy */ = {
+		E246466E2A0AD556008F9704 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E24D1DCB2944918100DC293B /* Project object */;
 			proxyType = 1;
@@ -49,7 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E23892D82966FEA500136A54 /* CopyFiles */ = {
+		E24646422A0AD166008F9704 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -58,7 +58,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		E24D1DED2945383200DC293B /* CopyFiles */ = {
+		E24646522A0AD37B008F9704 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -67,7 +67,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		E24D1DF8294538ED00DC293B /* CopyFiles */ = {
+		E24646622A0AD49C008F9704 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -79,18 +79,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E23892DA2966FEA500136A54 /* dtls-client */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "dtls-client"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E23892E12966FEB500136A54 /* dtls-client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "dtls-client.cpp"; sourceTree = "<group>"; };
+		E24646442A0AD166008F9704 /* coap-client */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "coap-client"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E246464B2A0AD17D008F9704 /* coap-client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "coap-client.cpp"; path = "examples/coap-client.cpp"; sourceTree = SOURCE_ROOT; };
+		E24646542A0AD37B008F9704 /* coap-dtls-client */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "coap-dtls-client"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E246465B2A0AD38F008F9704 /* coap-dtls-client.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "coap-dtls-client.cpp"; path = "examples/coap-dtls-client.cpp"; sourceTree = SOURCE_ROOT; };
+		E24646642A0AD49C008F9704 /* coap-server */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "coap-server"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E246466B2A0AD4AC008F9704 /* coap-server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "coap-server.cpp"; path = "examples/coap-server.cpp"; sourceTree = SOURCE_ROOT; };
 		E24D1DD32944918100DC293B /* libcpp-coap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcpp-coap.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E24D1DDE294491DE00DC293B /* exception.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = exception.h; path = "cpp-coap/exception.h"; sourceTree = "<group>"; };
 		E24D1DE22944997C00DC293B /* session.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = session.h; path = "cpp-coap/session.h"; sourceTree = "<group>"; };
 		E24D1DE32944997C00DC293B /* session.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = session.cpp; path = "cpp-coap/session.cpp"; sourceTree = "<group>"; };
 		E24D1DE62944E46400DC293B /* context.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = context.h; path = "cpp-coap/context.h"; sourceTree = "<group>"; };
 		E24D1DE72944E46400DC293B /* context.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = context.cpp; path = "cpp-coap/context.cpp"; sourceTree = "<group>"; };
-		E24D1DEF2945383200DC293B /* server */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = server; sourceTree = BUILT_PRODUCTS_DIR; };
-		E24D1DF12945383200DC293B /* server.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
-		E24D1DFA294538ED00DC293B /* client */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = client; sourceTree = BUILT_PRODUCTS_DIR; };
-		E24D1DFC294538ED00DC293B /* client.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = client.cpp; sourceTree = "<group>"; };
 		E2571EAB294611110086F3A8 /* client.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = client.h; path = "cpp-coap/client.h"; sourceTree = "<group>"; };
 		E2571EAC294611110086F3A8 /* client.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = client.cpp; path = "cpp-coap/client.cpp"; sourceTree = "<group>"; };
 		E2571EAF29465FAD0086F3A8 /* server.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = server.h; path = "cpp-coap/server.h"; sourceTree = "<group>"; };
@@ -98,11 +98,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E23892D72966FEA500136A54 /* Frameworks */ = {
+		E24646412A0AD166008F9704 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E23892E32966FFCC00136A54 /* libcpp-coap.a in Frameworks */,
+				E246464D2A0AD33D008F9704 /* libcpp-coap.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E24646512A0AD37B008F9704 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E246465D2A0AD3C4008F9704 /* libcpp-coap.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E24646612A0AD49C008F9704 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E246466D2A0AD556008F9704 /* libcpp-coap.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,40 +129,40 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E24D1DEC2945383200DC293B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E2571EB329466B9D0086F3A8 /* libcpp-coap.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E24D1DF7294538ED00DC293B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E24D1E02294539C900DC293B /* libcpp-coap.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E23892DB2966FEA500136A54 /* dtls-client */ = {
+		E24646452A0AD167008F9704 /* coap-client */ = {
 			isa = PBXGroup;
 			children = (
-				E23892E12966FEB500136A54 /* dtls-client.cpp */,
+				E246464B2A0AD17D008F9704 /* coap-client.cpp */,
 			);
-			path = "dtls-client";
+			path = "coap-client";
+			sourceTree = "<group>";
+		};
+		E24646552A0AD37C008F9704 /* coap-dtls-client */ = {
+			isa = PBXGroup;
+			children = (
+				E246465B2A0AD38F008F9704 /* coap-dtls-client.cpp */,
+			);
+			path = "coap-dtls-client";
+			sourceTree = "<group>";
+		};
+		E24646652A0AD49D008F9704 /* coap-server */ = {
+			isa = PBXGroup;
+			children = (
+				E246466B2A0AD4AC008F9704 /* coap-server.cpp */,
+			);
+			path = "coap-server";
 			sourceTree = "<group>";
 		};
 		E24D1DCA2944918100DC293B = {
 			isa = PBXGroup;
 			children = (
 				E24D1DEA294537F600DC293B /* cpp-coap */,
-				E24D1DF02945383200DC293B /* server */,
-				E24D1DFB294538ED00DC293B /* client */,
-				E23892DB2966FEA500136A54 /* dtls-client */,
+				E24646452A0AD167008F9704 /* coap-client */,
+				E24646552A0AD37C008F9704 /* coap-dtls-client */,
+				E24646652A0AD49D008F9704 /* coap-server */,
 				E24D1DD42944918100DC293B /* Products */,
 				E24D1E01294539C900DC293B /* Frameworks */,
 			);
@@ -156,9 +172,9 @@
 			isa = PBXGroup;
 			children = (
 				E24D1DD32944918100DC293B /* libcpp-coap.a */,
-				E24D1DEF2945383200DC293B /* server */,
-				E24D1DFA294538ED00DC293B /* client */,
-				E23892DA2966FEA500136A54 /* dtls-client */,
+				E24646442A0AD166008F9704 /* coap-client */,
+				E24646542A0AD37B008F9704 /* coap-dtls-client */,
+				E24646642A0AD49C008F9704 /* coap-server */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -177,22 +193,6 @@
 				E2571EB029465FAD0086F3A8 /* server.cpp */,
 			);
 			name = "cpp-coap";
-			sourceTree = "<group>";
-		};
-		E24D1DF02945383200DC293B /* server */ = {
-			isa = PBXGroup;
-			children = (
-				E24D1DF12945383200DC293B /* server.cpp */,
-			);
-			path = server;
-			sourceTree = "<group>";
-		};
-		E24D1DFB294538ED00DC293B /* client */ = {
-			isa = PBXGroup;
-			children = (
-				E24D1DFC294538ED00DC293B /* client.cpp */,
-			);
-			path = client;
 			sourceTree = "<group>";
 		};
 		E24D1E01294539C900DC293B /* Frameworks */ = {
@@ -220,22 +220,58 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		E23892D92966FEA500136A54 /* dtls-client */ = {
+		E24646432A0AD166008F9704 /* coap-client */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E23892E02966FEA500136A54 /* Build configuration list for PBXNativeTarget "dtls-client" */;
+			buildConfigurationList = E246464A2A0AD167008F9704 /* Build configuration list for PBXNativeTarget "coap-client" */;
 			buildPhases = (
-				E23892D62966FEA500136A54 /* Sources */,
-				E23892D72966FEA500136A54 /* Frameworks */,
-				E23892D82966FEA500136A54 /* CopyFiles */,
+				E24646402A0AD166008F9704 /* Sources */,
+				E24646412A0AD166008F9704 /* Frameworks */,
+				E24646422A0AD166008F9704 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E23892E52966FFCC00136A54 /* PBXTargetDependency */,
+				E246464F2A0AD33D008F9704 /* PBXTargetDependency */,
 			);
-			name = "dtls-client";
-			productName = "dtls-client";
-			productReference = E23892DA2966FEA500136A54 /* dtls-client */;
+			name = "coap-client";
+			productName = "coap-client";
+			productReference = E24646442A0AD166008F9704 /* coap-client */;
+			productType = "com.apple.product-type.tool";
+		};
+		E24646532A0AD37B008F9704 /* coap-dtls-client */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E24646582A0AD37C008F9704 /* Build configuration list for PBXNativeTarget "coap-dtls-client" */;
+			buildPhases = (
+				E24646502A0AD37B008F9704 /* Sources */,
+				E24646512A0AD37B008F9704 /* Frameworks */,
+				E24646522A0AD37B008F9704 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E246465F2A0AD3C4008F9704 /* PBXTargetDependency */,
+			);
+			name = "coap-dtls-client";
+			productName = "coap-dtls-client";
+			productReference = E24646542A0AD37B008F9704 /* coap-dtls-client */;
+			productType = "com.apple.product-type.tool";
+		};
+		E24646632A0AD49C008F9704 /* coap-server */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E24646682A0AD49D008F9704 /* Build configuration list for PBXNativeTarget "coap-server" */;
+			buildPhases = (
+				E24646602A0AD49C008F9704 /* Sources */,
+				E24646612A0AD49C008F9704 /* Frameworks */,
+				E24646622A0AD49C008F9704 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E246466F2A0AD556008F9704 /* PBXTargetDependency */,
+			);
+			name = "coap-server";
+			productName = "coap-server";
+			productReference = E24646642A0AD49C008F9704 /* coap-server */;
 			productType = "com.apple.product-type.tool";
 		};
 		E24D1DD22944918100DC293B /* cpp-coap */ = {
@@ -255,42 +291,6 @@
 			productReference = E24D1DD32944918100DC293B /* libcpp-coap.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		E24D1DEE2945383200DC293B /* server */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E24D1DF32945383200DC293B /* Build configuration list for PBXNativeTarget "server" */;
-			buildPhases = (
-				E24D1DEB2945383200DC293B /* Sources */,
-				E24D1DEC2945383200DC293B /* Frameworks */,
-				E24D1DED2945383200DC293B /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E2571EB529466B9D0086F3A8 /* PBXTargetDependency */,
-			);
-			name = server;
-			productName = server;
-			productReference = E24D1DEF2945383200DC293B /* server */;
-			productType = "com.apple.product-type.tool";
-		};
-		E24D1DF9294538ED00DC293B /* client */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E24D1DFE294538ED00DC293B /* Build configuration list for PBXNativeTarget "client" */;
-			buildPhases = (
-				E24D1DF6294538ED00DC293B /* Sources */,
-				E24D1DF7294538ED00DC293B /* Frameworks */,
-				E24D1DF8294538ED00DC293B /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E24D1E04294539C900DC293B /* PBXTargetDependency */,
-			);
-			name = client;
-			productName = client;
-			productReference = E24D1DFA294538ED00DC293B /* client */;
-			productType = "com.apple.product-type.tool";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -298,19 +298,19 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = Brzeski.net;
 				TargetAttributes = {
-					E23892D92966FEA500136A54 = {
-						CreatedOnToolsVersion = 14.2;
+					E24646432A0AD166008F9704 = {
+						CreatedOnToolsVersion = 14.3;
+					};
+					E24646532A0AD37B008F9704 = {
+						CreatedOnToolsVersion = 14.3;
+					};
+					E24646632A0AD49C008F9704 = {
+						CreatedOnToolsVersion = 14.3;
 					};
 					E24D1DD22944918100DC293B = {
-						CreatedOnToolsVersion = 14.1;
-					};
-					E24D1DEE2945383200DC293B = {
-						CreatedOnToolsVersion = 14.1;
-					};
-					E24D1DF9294538ED00DC293B = {
 						CreatedOnToolsVersion = 14.1;
 					};
 				};
@@ -329,19 +329,35 @@
 			projectRoot = "";
 			targets = (
 				E24D1DD22944918100DC293B /* cpp-coap */,
-				E24D1DEE2945383200DC293B /* server */,
-				E24D1DF9294538ED00DC293B /* client */,
-				E23892D92966FEA500136A54 /* dtls-client */,
+				E24646432A0AD166008F9704 /* coap-client */,
+				E24646532A0AD37B008F9704 /* coap-dtls-client */,
+				E24646632A0AD49C008F9704 /* coap-server */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		E23892D62966FEA500136A54 /* Sources */ = {
+		E24646402A0AD166008F9704 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E23892E22966FEB500136A54 /* dtls-client.cpp in Sources */,
+				E246464C2A0AD17D008F9704 /* coap-client.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E24646502A0AD37B008F9704 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E246465C2A0AD38F008F9704 /* coap-dtls-client.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E24646602A0AD49C008F9704 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E246466C2A0AD4AC008F9704 /* coap-server.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,44 +372,56 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E24D1DEB2945383200DC293B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E24D1DF22945383200DC293B /* server.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E24D1DF6294538ED00DC293B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E24D1DFD294538ED00DC293B /* client.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E23892E52966FFCC00136A54 /* PBXTargetDependency */ = {
+		E246464F2A0AD33D008F9704 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E24D1DD22944918100DC293B /* cpp-coap */;
-			targetProxy = E23892E42966FFCC00136A54 /* PBXContainerItemProxy */;
+			targetProxy = E246464E2A0AD33D008F9704 /* PBXContainerItemProxy */;
 		};
-		E24D1E04294539C900DC293B /* PBXTargetDependency */ = {
+		E246465F2A0AD3C4008F9704 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E24D1DD22944918100DC293B /* cpp-coap */;
-			targetProxy = E24D1E03294539C900DC293B /* PBXContainerItemProxy */;
+			targetProxy = E246465E2A0AD3C4008F9704 /* PBXContainerItemProxy */;
 		};
-		E2571EB529466B9D0086F3A8 /* PBXTargetDependency */ = {
+		E246466F2A0AD556008F9704 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E24D1DD22944918100DC293B /* cpp-coap */;
-			targetProxy = E2571EB429466B9D0086F3A8 /* PBXContainerItemProxy */;
+			targetProxy = E246466E2A0AD556008F9704 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		E23892DE2966FEA500136A54 /* Debug */ = {
+		E24646482A0AD167008F9704 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E24646492A0AD167008F9704 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		E24646592A0AD37C008F9704 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -406,7 +434,33 @@
 			};
 			name = Debug;
 		};
-		E23892DF2966FEA500136A54 /* Release */ = {
+		E246465A2A0AD37C008F9704 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		E24646692A0AD49D008F9704 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
+				OTHER_LDFLAGS = (
+					"-lcoap-3-openssl",
+					"-lssl",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E246466A2A0AD49D008F9704 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -452,6 +506,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -513,6 +568,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -538,6 +594,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -548,72 +605,39 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
-		E24D1DF42945383200DC293B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = (
-					"-lcoap-3-openssl",
-					"-lssl",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		E24D1DF52945383200DC293B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = (
-					"-lcoap-3-openssl",
-					"-lssl",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		E24D1DFF294538ED00DC293B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = (
-					"-lcoap-3-openssl",
-					"-lssl",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		E24D1E00294538ED00DC293B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = (
-					"-lcoap-3-openssl",
-					"-lssl",
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E23892E02966FEA500136A54 /* Build configuration list for PBXNativeTarget "dtls-client" */ = {
+		E246464A2A0AD167008F9704 /* Build configuration list for PBXNativeTarget "coap-client" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E23892DE2966FEA500136A54 /* Debug */,
-				E23892DF2966FEA500136A54 /* Release */,
+				E24646482A0AD167008F9704 /* Debug */,
+				E24646492A0AD167008F9704 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E24646582A0AD37C008F9704 /* Build configuration list for PBXNativeTarget "coap-dtls-client" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E24646592A0AD37C008F9704 /* Debug */,
+				E246465A2A0AD37C008F9704 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E24646682A0AD49D008F9704 /* Build configuration list for PBXNativeTarget "coap-server" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E24646692A0AD49D008F9704 /* Debug */,
+				E246466A2A0AD49D008F9704 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -632,24 +656,6 @@
 			buildConfigurations = (
 				E24D1DD82944918100DC293B /* Debug */,
 				E24D1DD92944918100DC293B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E24D1DF32945383200DC293B /* Build configuration list for PBXNativeTarget "server" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E24D1DF42945383200DC293B /* Debug */,
-				E24D1DF52945383200DC293B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E24D1DFE294538ED00DC293B /* Build configuration list for PBXNativeTarget "client" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E24D1DFF294538ED00DC293B /* Debug */,
-				E24D1E00294538ED00DC293B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
