@@ -1,7 +1,3 @@
 # cpp-coap
 
-## TODO:
-
-* Support multiple threads
-* Proper support for multiple sessions created by a single client
-* Stopping the server
+C++ COAP library based on [libcoap](https://libcoap.net).
