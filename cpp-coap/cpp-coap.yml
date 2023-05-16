@@ -2,6 +2,8 @@ targets:
   cpp-coap:
     platform: macOS
     type: library.static
+    settings:
+      SYSTEM_HEADER_SEARCH_PATHS: /opt/homebrew/include
     sources:
       - path: client.cpp
         group: cpp-coap

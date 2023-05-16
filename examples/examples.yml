@@ -7,8 +7,9 @@ targets:
         link: true
     settings:
       HEADER_SEARCH_PATHS: ${SRCROOT}
-      OTHER_LD_FLAGS: -lcoap-3-openssl -lssl
-      _LINUX_OTHER_LD_FLAGS: -lcoap-3-gnutls
+      LIBRARY_SEARCH_PATHS: /opt/homebrew/lib
+      OTHER_LDFLAGS: -lcoap-3-openssl -lssl
+      _LINUX_OTHER_LDFLAGS: -lcoap-3-gnutls
     sources:
       - path: coap-client.cpp
         group: examples
@@ -21,8 +22,9 @@ targets:
         link: true
     settings:
       HEADER_SEARCH_PATHS: ${SRCROOT}
-      OTHER_LD_FLAGS: -lcoap-3-openssl -lssl
-      _LINUX_OTHER_LD_FLAGS: -lcoap-3-gnutls
+      LIBRARY_SEARCH_PATHS: /opt/homebrew/lib
+      OTHER_LDFLAGS: -lcoap-3-openssl -lssl
+      _LINUX_OTHER_LDFLAGS: -lcoap-3-gnutls
     sources:
       - path: coap-dtls-client.cpp
         group: examples
@@ -35,8 +37,9 @@ targets:
         link: true
     settings:
       HEADER_SEARCH_PATHS: ${SRCROOT}
-      OTHER_LD_FLAGS: -lcoap-3-openssl -lssl
-      _LINUX_OTHER_LD_FLAGS: -lcoap-3-gnutls
+      LIBRARY_SEARCH_PATHS: /opt/homebrew/lib
+      OTHER_LDFLAGS: -lcoap-3-openssl -lssl
+      _LINUX_OTHER_LDFLAGS: -lcoap-3-gnutls
     sources:
       - path: coap-server.cpp
         group: examples
