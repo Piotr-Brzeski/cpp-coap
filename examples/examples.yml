@@ -1,0 +1,42 @@
+targets:
+  coap-client:
+    platform: macOS
+    type: tool
+    dependencies:
+      - target: cpp-coap
+        link: true
+    settings:
+      HEADER_SEARCH_PATHS: ${SRCROOT}
+      OTHER_LD_FLAGS: -lcoap-3-openssl -lssl
+      _LINUX_OTHER_LD_FLAGS: -lcoap-3-gnutls
+    sources:
+      - path: coap-client.cpp
+        group: examples
+
+  coap-dtls-client:
+    platform: macOS
+    type: tool
+    dependencies:
+      - target: cpp-coap
+        link: true
+    settings:
+      HEADER_SEARCH_PATHS: ${SRCROOT}
+      OTHER_LD_FLAGS: -lcoap-3-openssl -lssl
+      _LINUX_OTHER_LD_FLAGS: -lcoap-3-gnutls
+    sources:
+      - path: coap-dtls-client.cpp
+        group: examples
+
+  coap-server:
+    platform: macOS
+    type: tool
+    dependencies:
+      - target: cpp-coap
+        link: true
+    settings:
+      HEADER_SEARCH_PATHS: ${SRCROOT}
+      OTHER_LD_FLAGS: -lcoap-3-openssl -lssl
+      _LINUX_OTHER_LD_FLAGS: -lcoap-3-gnutls
+    sources:
+      - path: coap-server.cpp
+        group: examples

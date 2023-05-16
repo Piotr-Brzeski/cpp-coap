@@ -13,6 +13,7 @@
 #include <arpa/inet.h>
 #include <optional>
 #include <array>
+#include <memory>
 
 #ifdef __APPLE__
 // On macOS OpenSSL is used and unsafe renegotiation is disabled by default
@@ -130,6 +131,7 @@ void session::send(method method, std::string const& uri, std::string const& dat
 	auto coap_method = [method](){switch(method) {
 		case method::get: return COAP_REQUEST_CODE_GET;
 		case method::put: return COAP_REQUEST_CODE_PUT;
+		default: throw coap::exception("Invalid coap method");
 	}}();
 	auto message_id = coap_new_message_id(m_session);
 	auto max_pdu_size = coap_session_max_pdu_size(m_session);

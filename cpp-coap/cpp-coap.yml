@@ -1,0 +1,28 @@
+targets:
+  cpp-coap:
+    platform: macOS
+    type: library.static
+    sources:
+      - path: client.cpp
+        group: cpp-coap
+      - path: client.h
+        group: cpp-coap
+        buildPhase: none
+      - path: context.cpp
+        group: cpp-coap
+      - path: context.h
+        group: cpp-coap
+        buildPhase: none
+      - path: exception.h
+        group: cpp-coap
+        buildPhase: none
+      - path: session.cpp
+        group: cpp-coap
+      - path: session.h
+        group: cpp-coap
+        buildPhase: none
+      - path: server.cpp
+        group: cpp-coap
+      - path: server.h
+        group: cpp-coap
+        buildPhase: none

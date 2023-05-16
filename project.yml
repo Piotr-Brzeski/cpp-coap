@@ -1,0 +1,23 @@
+name: cpp-coap
+
+options:
+  usesTabs: true
+  tabWidth: 2
+  indentWidth: 2
+
+settings:
+  configs:
+    Debug:
+      GCC_PREPROCESSOR_DEFINITIONS:
+    Release:
+      GCC_PREPROCESSOR_DEFINITIONS: NDEBUG=1
+  base:
+    GCC_C_LANGUAGE_STANDARD: c11
+    CLANG_CXX_LANGUAGE_STANDARD: c++20
+    USE_HEADERMAP: false
+    GCC_WARN_PEDANTIC: true
+    GCC_TREAT_WARNINGS_AS_ERRORS: true
+
+include:
+  - cpp-coap/cpp-coap.yml
+  - examples/examples.yml
