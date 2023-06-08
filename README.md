@@ -20,7 +20,13 @@ brew install libcoap
 There is a [bug](https://github.com/openssl/openssl/issues/20753)
 in the libcrypto library that prevents debugging the application.
 [Fix](https://github.com/openssl/openssl/pull/20305) is ready,
-but not yet merged to the release version of the openssl.
+but not merged to the current version of the openssl library.
+
+As a workaround create `~/.lldbinit` file:
+```
+settings set platform.plugin.darwin.ignored-exceptions EXC_BAD_INSTRUCTION
+process handle SIGILL -n true -p true -s false
+```
 
 ## Examples
 
