@@ -6,6 +6,22 @@ C++ COAP library based on [libcoap](https://libcoap.net).
 Use [XcodeGen](https://github.com/yonaskolb/XcodeGen) to generate Xcode project
 or [NinjaGen](https://github.com/Piotr-Brzeski/NinjaGen) to generate ninja build file.
 
+### Dependencies
+On macOS [libcoap](https://libcoap.net) and [openssl](https://www.openssl.org)
+may be installed using [Homebrew](https://brew.sh)
+
+```
+brew install openssl
+ln -s /opt/homebrew/opt/openssl@3/include/openssl /opt/homebrew/include/openssl
+ln -s /opt/homebrew/opt/openssl@3/lib/libssl.dylib /opt/homebrew/lib
+brew install libcoap
+```
+
+There is a [bug](https://github.com/openssl/openssl/issues/20753)
+in the libcrypto library that prevents debugging the application.
+[Fix](https://github.com/openssl/openssl/pull/20305) is ready,
+but not yet merged to the release version of the openssl.
+
 ## Examples
 
 In order to build `coap-dtls-client` example application
@@ -20,5 +36,5 @@ constexpr int port = 5684;
 constexpr char const* identity = "name";
 constexpr char const* key = "key";
 
-}```
-
+}
+```
