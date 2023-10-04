@@ -39,6 +39,7 @@ private:
 	
 	client&           m_client;
 	::coap_session_t* m_session = nullptr;
+	std::string const m_identity;
 };
 
 }

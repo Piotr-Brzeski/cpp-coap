@@ -104,6 +104,7 @@ session::session(client& client, const char* ip, int port)
 
 session::session(client& client, const char* ip, int port, std::string const& identity, std::string const& key)
 	: m_client(client)
+	, m_identity(identity)
 {
 	coap_address_t address = resolve_address(ip, port);
 	auto session = create_session(m_client, &address, identity.c_str(),
@@ -267,15 +268,11 @@ void session::reconnect() {
 			break;
 		case COAP_PROTO_DTLS:
 		{
-			auto identity = ::coap_session_get_psk_identity(m_session);
-			if(identity == nullptr || identity->s[identity->length] != 0) {
-				throw coap::exception("Can not reconnect - invalid identity");
-			}
 			auto key = ::coap_session_get_psk_key(m_session);
 			if(key == nullptr || identity->s == nullptr) {
 				throw coap::exception("Can not reconnect - invalid identity");
 			}
-			session = create_session(m_client, address, reinterpret_cast<const char*>(identity->s), key->s, key->length);
+			session = create_session(m_client, address, m_identity.c_str(), key->s, key->length);
 		}
 			break;
 		default:
