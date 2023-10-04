@@ -3,7 +3,9 @@ targets:
     platform: macOS
     type: library.static
     settings:
-      SYSTEM_HEADER_SEARCH_PATHS: /opt/homebrew/include
+      SYSTEM_HEADER_SEARCH_PATHS:
+        - /opt/homebrew/include
+      HEADER_SEARCH_PATHS:
         - ${SRCROOT}/cpp-log
     sources:
       - path: client.cpp
