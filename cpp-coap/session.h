@@ -28,13 +28,14 @@ public:
 	session& operator=(session const&) = delete;
 	session& operator=(session&& session);
 
-	std::string get(std::string const& uri);
-	void put(std::string const& uri, std::string const& data);
+	std::string get(std::string const& uri, bool reconnect_on_error = true);
+	void put(std::string const& uri, std::string const& data, bool reconnect_on_error = true);
 	
 private:
 	enum class method { get, put };
 	void send(method method, std::string const& uri, std::string const& data);
 	std::string process();
+    void reconnect();
 	
 	client&           m_client;
 	::coap_session_t* m_session = nullptr;

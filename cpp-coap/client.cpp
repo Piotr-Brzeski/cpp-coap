@@ -15,6 +15,9 @@ using namespace coap;
 client::client() {
 	::coap_register_response_handler(m_context, [](coap_session_t* session, coap_pdu_t const*, coap_pdu_t const* received, coap_mid_t const message_id) {
 		auto response = static_cast<std::optional<coap::response>*>(::coap_session_get_app_data(session));
+		if(response == nullptr) {
+			return COAP_RESPONSE_FAIL;
+		}
 		auto code = coap_pdu_get_code(received);
 		*response = coap::response{code};
 		if(code == COAP_RESPONSE_CODE_CONTENT) {
@@ -40,7 +43,7 @@ session client::create_session(const char *ip, int port, std::string const& iden
 }
 
 void client::process(std::optional<response>& response) {
-	constexpr std::uint32_t timeout_ms = 10000;
+	constexpr std::uint32_t timeout_ms = 5000;
 	auto timeout = timeout_ms;
 	while(timeout > 0) {
 		auto time = ::coap_io_process(m_context, timeout);

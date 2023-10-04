@@ -9,6 +9,7 @@
 #include "session.h"
 #include "client.h"
 #include "exception.h"
+#include "logger.h"
 #include <coap3/coap.h>
 #include <arpa/inet.h>
 #include <optional>
@@ -65,31 +66,49 @@ struct opt_list {
 //	return static_cast<coap_dtls_cpsk_info_t*>(arg);
 //}
 
+using session_ptr = std::unique_ptr<::coap_session_t, decltype(&::coap_session_release)>;
+
+session_ptr create_session(client& client, coap_address_t const* address) {
+	auto session = session_ptr(
+		::coap_new_client_session(client, nullptr, address, COAP_PROTO_UDP),
+		::coap_session_release);
+	if(!session) {
+		throw coap::exception("UDP Session creation failed");
+	}
+	return session;
+}
+
+session_ptr create_session(client& client, coap_address_t const* address, const char* identity, const std::uint8_t* key, std::size_t key_size) {
+	if(coap_dtls_is_supported() != 1) { // || coap_dtls_psk_is_supported() != 1) {
+		throw coap::exception("Session creation failed - DTLS is not supported.");
+	}
+	auto session = session_ptr(
+		::coap_new_client_session_psk(client, nullptr, address, COAP_PROTO_DTLS, identity, key, static_cast<unsigned int>(key_size)),
+		::coap_session_release);
+	if(!session) {
+		throw coap::exception("DTLS Session creation failed");
+	}
+	allow_openssl_unsafe_renegotiation(session.get());
+	return session;
+}
+
 }
 
 session::session(client& client, const char* ip, int port)
 	: m_client(client)
 {
 	coap_address_t address = resolve_address(ip, port);
-	m_session = ::coap_new_client_session(m_client, nullptr, &address, COAP_PROTO_UDP);
-	if(m_session == nullptr) {
-		throw coap::exception("UDP Session creation failed");
-	}
+	auto session = create_session(m_client, &address);
+	m_session = session.release();
 }
 
 session::session(client& client, const char* ip, int port, std::string const& identity, std::string const& key)
 	: m_client(client)
 {
-	if(coap_dtls_is_supported() != 1) { // || coap_dtls_psk_is_supported() != 1) {
-		throw coap::exception("Session creation failed - DTLS is not supported.");
-	}
 	coap_address_t address = resolve_address(ip, port);
-	m_session = ::coap_new_client_session_psk(m_client, nullptr, &address, COAP_PROTO_DTLS, identity.c_str(),
-	                                          reinterpret_cast<std::uint8_t const*>(key.data()), static_cast<unsigned int>(key.size()));
-	if(m_session == nullptr) {
-		throw coap::exception("DTLS Session creation failed");
-	}
-	allow_openssl_unsafe_renegotiation(m_session);
+	auto session = create_session(m_client, &address, identity.c_str(),
+	                              reinterpret_cast<std::uint8_t const*>(key.data()), key.size());
+	m_session = session.release();
 }
 
 session::~session() {
@@ -116,15 +135,38 @@ session& session::operator=(session &&session) {
 	return *this;
 }
 
-std::string session::get(std::string const& uri) {
+std::string session::get(std::string const& uri, bool reconnect_on_error) {
 	static const std::string empty_string;
-	send(method::get, uri, empty_string);
-	return process();
+	try {
+		send(method::get, uri, empty_string);
+		return process();
+	}
+	catch(std::exception &e) {
+		log(std::string("COAP get failed: ") + e.what());
+		if(reconnect_on_error) {
+			log("COAP reconnecting");
+			reconnect();
+			return get(uri, false);
+		}
+		throw;
+	}
 }
 
-void session::put(std::string const& uri, std::string const& data) {
-	send(method::put, uri, data);
-	process();
+void session::put(std::string const& uri, std::string const& data, bool reconnect_on_error) {
+	try {
+		send(method::put, uri, data);
+		process();
+	}
+	catch(std::exception &e) {
+		log(std::string("COAP put failed: ") + e.what());
+		if(reconnect_on_error) {
+			log("COAP reconnecting");
+			reconnect();
+			put(uri, data, false);
+			return;
+		}
+		throw;
+	}
 }
 
 void session::send(method method, std::string const& uri, std::string const& data) {
@@ -209,4 +251,36 @@ std::string session::process() {
 		}
 	}
 	return response->content;
+}
+
+void session::reconnect() {
+	if(m_session == nullptr) {
+		throw coap::exception("No session to reconnect");
+	}
+	::coap_session_set_app_data(m_session, nullptr);
+	coap_address_t const* address = coap_session_get_addr_remote(m_session);
+	auto session = session_ptr(nullptr, ::coap_session_release);
+	auto proto = ::coap_session_get_proto(m_session);
+	switch(proto) {
+		case COAP_PROTO_UDP:
+			session = create_session(m_client, address);
+			break;
+		case COAP_PROTO_DTLS:
+		{
+			auto identity = ::coap_session_get_psk_identity(m_session);
+			if(identity == nullptr || identity->s[identity->length] != 0) {
+				throw coap::exception("Can not reconnect - invalid identity");
+			}
+			auto key = ::coap_session_get_psk_key(m_session);
+			if(key == nullptr || identity->s == nullptr) {
+				throw coap::exception("Can not reconnect - invalid identity");
+			}
+			session = create_session(m_client, address, reinterpret_cast<const char*>(identity->s), key->s, key->length);
+		}
+			break;
+		default:
+			throw coap::exception("Can not reconnect - invalid session type");
+	}
+	::coap_session_release(m_session);
+	m_session = session.release();
 }

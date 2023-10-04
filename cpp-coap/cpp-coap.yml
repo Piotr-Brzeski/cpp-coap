@@ -18,6 +18,9 @@ targets:
       - path: exception.h
         group: cpp-coap
         buildPhase: none
+      - path: logger.h
+        group: cpp-coap
+        buildPhase: none
       - path: session.cpp
         group: cpp-coap
       - path: session.h
