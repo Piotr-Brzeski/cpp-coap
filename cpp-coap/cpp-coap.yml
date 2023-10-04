@@ -4,6 +4,7 @@ targets:
     type: library.static
     settings:
       SYSTEM_HEADER_SEARCH_PATHS: /opt/homebrew/include
+        - ${SRCROOT}/cpp-log
     sources:
       - path: client.cpp
         group: cpp-coap
@@ -16,9 +17,6 @@ targets:
         group: cpp-coap
         buildPhase: none
       - path: exception.h
-        group: cpp-coap
-        buildPhase: none
-      - path: logger.h
         group: cpp-coap
         buildPhase: none
       - path: session.cpp

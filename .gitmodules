@@ -1,0 +1,3 @@
+[submodule "cpp-log"]
+	path = cpp-log
+	url = https://github.com/Piotr-Brzeski/cpp-log

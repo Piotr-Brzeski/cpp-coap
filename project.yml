@@ -20,4 +20,5 @@ settings:
 
 include:
   - cpp-coap/cpp-coap.yml
+  - cpp-log/cpp-log/cpp-log.yml
   - examples/examples.yml

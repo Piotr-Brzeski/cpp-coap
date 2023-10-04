@@ -5,6 +5,8 @@ targets:
     dependencies:
       - target: cpp-coap
         link: true
+      - target: cpp-log
+        link: true
     settings:
       HEADER_SEARCH_PATHS: ${SRCROOT}
       LIBRARY_SEARCH_PATHS: /opt/homebrew/lib
@@ -20,6 +22,8 @@ targets:
     dependencies:
       - target: cpp-coap
         link: true
+      - target: cpp-log
+        link: true
     settings:
       HEADER_SEARCH_PATHS: ${SRCROOT}
       LIBRARY_SEARCH_PATHS: /opt/homebrew/lib
@@ -34,6 +38,8 @@ targets:
     type: tool
     dependencies:
       - target: cpp-coap
+        link: true
+      - target: cpp-log
         link: true
     settings:
       HEADER_SEARCH_PATHS: ${SRCROOT}

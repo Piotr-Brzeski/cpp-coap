@@ -9,7 +9,7 @@
 #include "session.h"
 #include "client.h"
 #include "exception.h"
-#include "logger.h"
+#include <cpp-log/log.h>
 #include <coap3/coap.h>
 #include <arpa/inet.h>
 #include <optional>
@@ -142,9 +142,9 @@ std::string session::get(std::string const& uri, bool reconnect_on_error) {
 		return process();
 	}
 	catch(std::exception &e) {
-		log(std::string("COAP get failed: ") + e.what());
+		log::log(std::string("COAP get failed: ") + e.what());
 		if(reconnect_on_error) {
-			log("COAP reconnecting");
+			log::log("COAP reconnecting");
 			reconnect();
 			return get(uri, false);
 		}
@@ -158,9 +158,9 @@ void session::put(std::string const& uri, std::string const& data, bool reconnec
 		process();
 	}
 	catch(std::exception &e) {
-		log(std::string("COAP put failed: ") + e.what());
+		log::log(std::string("COAP put failed: ") + e.what());
 		if(reconnect_on_error) {
-			log("COAP reconnecting");
+			log::log("COAP reconnecting");
 			reconnect();
 			put(uri, data, false);
 			return;
