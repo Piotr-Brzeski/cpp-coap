@@ -269,8 +269,8 @@ void session::reconnect() {
 		case COAP_PROTO_DTLS:
 		{
 			auto key = ::coap_session_get_psk_key(m_session);
-			if(key == nullptr || identity->s == nullptr) {
-				throw coap::exception("Can not reconnect - invalid identity");
+			if(key == nullptr || key->s == nullptr) {
+				throw coap::exception("Can not reconnect - invalid key");
 			}
 			session = create_session(m_client, address, m_identity.c_str(), key->s, key->length);
 		}
