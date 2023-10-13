@@ -7,10 +7,12 @@
 //
 
 #include <cpp-coap/server.h>
+#include <cpp-log/log.h>
 #include <iostream>
 
 int main(int argc, const char * argv[]) {
 	try {
+		auto log = logger::start(logger::cout());
 		auto server = coap::server();
 		server.add_endpoint(5683);
 		server.add_handler("hello", [](){ return "world"; });

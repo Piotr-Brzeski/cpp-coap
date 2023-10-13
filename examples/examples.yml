@@ -8,7 +8,9 @@ targets:
       - target: cpp-log
         link: true
     settings:
-      HEADER_SEARCH_PATHS: ${SRCROOT}
+      HEADER_SEARCH_PATHS:
+        - ${SRCROOT}
+        - ${SRCROOT}/cpp-log
       LIBRARY_SEARCH_PATHS: /opt/homebrew/lib
       OTHER_LDFLAGS: -lcoap-3-openssl -lssl
       _LINUX_OTHER_LDFLAGS: -lcoap-3-gnutls
@@ -25,7 +27,9 @@ targets:
       - target: cpp-log
         link: true
     settings:
-      HEADER_SEARCH_PATHS: ${SRCROOT}
+      HEADER_SEARCH_PATHS:
+        - ${SRCROOT}
+        - ${SRCROOT}/cpp-log
       LIBRARY_SEARCH_PATHS: /opt/homebrew/lib
       OTHER_LDFLAGS: -lcoap-3-openssl -lssl
       _LINUX_OTHER_LDFLAGS: -lcoap-3-gnutls
@@ -42,7 +46,9 @@ targets:
       - target: cpp-log
         link: true
     settings:
-      HEADER_SEARCH_PATHS: ${SRCROOT}
+      HEADER_SEARCH_PATHS:
+        - ${SRCROOT}
+        - ${SRCROOT}/cpp-log
       LIBRARY_SEARCH_PATHS: /opt/homebrew/lib
       OTHER_LDFLAGS: -lcoap-3-openssl -lssl
       _LINUX_OTHER_LDFLAGS: -lcoap-3-gnutls

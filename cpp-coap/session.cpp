@@ -143,9 +143,9 @@ std::string session::get(std::string const& uri, bool reconnect_on_error) {
 		return process();
 	}
 	catch(std::exception &e) {
-		log::log(std::string("COAP get failed: ") + e.what());
+		logger::log(std::string("COAP get failed: ") + e.what());
 		if(reconnect_on_error) {
-			log::log("COAP reconnecting");
+			logger::log("COAP reconnecting");
 			reconnect();
 			return get(uri, false);
 		}
@@ -159,9 +159,9 @@ void session::put(std::string const& uri, std::string const& data, bool reconnec
 		process();
 	}
 	catch(std::exception &e) {
-		log::log(std::string("COAP put failed: ") + e.what());
+		logger::log(std::string("COAP put failed: ") + e.what());
 		if(reconnect_on_error) {
-			log::log("COAP reconnecting");
+			logger::log("COAP reconnecting");
 			reconnect();
 			put(uri, data, false);
 			return;
@@ -189,7 +189,7 @@ void session::send(method method, std::string const& uri, std::string const& dat
 			default:
 				throw coap::exception("Invalid coap method");
 	}};
-	log::log(coap_method_name(method) + uri + " " + data);
+	logger::log(coap_method_name(method) + uri + " " + data);
 	auto message_id = coap_new_message_id(m_session);
 	auto max_pdu_size = coap_session_max_pdu_size(m_session);
 	auto message = coap_pdu_init(COAP_MESSAGE_CON, coap_method(method), message_id, max_pdu_size);
@@ -265,7 +265,7 @@ std::string session::process() {
 			throw coap::exception(error_message);
 		}
 	}
-	log::log("COAP response: " + response->content);
+	logger::log("COAP response: " + response->content);
 	return response->content;
 }
 

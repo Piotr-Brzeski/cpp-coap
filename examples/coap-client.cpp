@@ -7,10 +7,12 @@
 //
 
 #include <cpp-coap/client.h>
+#include <cpp-log/log.h>
 #include <iostream>
 
 int main(int argc, const char * argv[]) {
 	try {
+		auto log = logger::start(logger::cout());
 		auto client = coap::client();
 		auto session = client.create_session("127.0.0.1", 5683);
 		auto response = session.get("hello");
