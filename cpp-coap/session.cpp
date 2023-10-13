@@ -171,14 +171,28 @@ void session::put(std::string const& uri, std::string const& data, bool reconnec
 }
 
 void session::send(method method, std::string const& uri, std::string const& data) {
-	auto coap_method = [method](){switch(method) {
-		case method::get: return COAP_REQUEST_CODE_GET;
-		case method::put: return COAP_REQUEST_CODE_PUT;
-		default: throw coap::exception("Invalid coap method");
-	}}();
+	static auto coap_method = [](auto method){
+		switch(method) {
+			case method::get:
+				return COAP_REQUEST_CODE_GET;
+			case method::put:
+				return COAP_REQUEST_CODE_PUT;
+			default:
+				throw coap::exception("Invalid coap method");
+	}};
+	static auto coap_method_name = [](auto method) {
+		switch(method) {
+			case method::get:
+				return "COAP GET ";
+			case method::put:
+				return "COAP PUT ";
+			default:
+				throw coap::exception("Invalid coap method");
+	}};
+	log::log(coap_method_name(method) + uri + " " + data);
 	auto message_id = coap_new_message_id(m_session);
 	auto max_pdu_size = coap_session_max_pdu_size(m_session);
-	auto message = coap_pdu_init(COAP_MESSAGE_CON, coap_method, message_id, max_pdu_size);
+	auto message = coap_pdu_init(COAP_MESSAGE_CON, coap_method(method), message_id, max_pdu_size);
 	if(message == nullptr) {
 		throw coap::exception("Message creation failed");
 	}
@@ -251,6 +265,7 @@ std::string session::process() {
 			throw coap::exception(error_message);
 		}
 	}
+	log::log("COAP response: " + response->content);
 	return response->content;
 }
 
