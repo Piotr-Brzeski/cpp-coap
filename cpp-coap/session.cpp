@@ -78,18 +78,29 @@ session_ptr create_session(client& client, coap_address_t const* address) {
 	return session;
 }
 
-session_ptr create_session(client& client, coap_address_t const* address, const char* identity, const std::uint8_t* key, std::size_t key_size) {
-	if(coap_dtls_is_supported() != 1) { // || coap_dtls_psk_is_supported() != 1) {
+session_ptr create_session(client& client, coap_address_t const* address, const char* identity, std::string const& key) {
+	if(::coap_dtls_is_supported() != 1) { // || ::coap_dtls_psk_is_supported() != 1) {
 		throw coap::exception("Session creation failed - DTLS is not supported.");
 	}
 	auto session = session_ptr(
-		::coap_new_client_session_psk(client, nullptr, address, COAP_PROTO_DTLS, identity, key, static_cast<unsigned int>(key_size)),
+		::coap_new_client_session_psk(client, nullptr, address, COAP_PROTO_DTLS, identity, reinterpret_cast<const unsigned char*>(key.c_str()), static_cast<unsigned int>(key.size())),
 		::coap_session_release);
 	if(!session) {
 		throw coap::exception("DTLS Session creation failed");
 	}
 	allow_openssl_unsafe_renegotiation(session.get());
 	return session;
+}
+
+std::string response_code_description(int code) {
+	auto response_class = COAP_RESPONSE_CLASS(code);
+	auto response = std::to_string(response_class*100 + (code & 31));
+	auto code_phrase = ::coap_response_phrase(code);
+	if(code_phrase != nullptr) {
+		response += " ";
+		response += code_phrase;
+	}
+	return response;
 }
 
 }
@@ -105,10 +116,10 @@ session::session(client& client, const char* ip, int port)
 session::session(client& client, const char* ip, int port, std::string const& identity, std::string const& key)
 	: m_client(client)
 	, m_identity(identity)
+	, m_key(key)
 {
 	coap_address_t address = resolve_address(ip, port);
-	auto session = create_session(m_client, &address, identity.c_str(),
-	                              reinterpret_cast<std::uint8_t const*>(key.data()), key.size());
+	auto session = create_session(m_client, &address, identity.c_str(), m_key);
 	m_session = session.release();
 }
 
@@ -190,9 +201,9 @@ void session::send(method method, std::string const& uri, std::string const& dat
 				throw coap::exception("Invalid coap method");
 	}};
 	logger::log(coap_method_name(method) + uri + " " + data);
-	auto message_id = coap_new_message_id(m_session);
-	auto max_pdu_size = coap_session_max_pdu_size(m_session);
-	auto message = coap_pdu_init(COAP_MESSAGE_CON, coap_method(method), message_id, max_pdu_size);
+	auto message_id = ::coap_new_message_id(m_session);
+	auto max_pdu_size = ::coap_session_max_pdu_size(m_session);
+	auto message = ::coap_pdu_init(COAP_MESSAGE_CON, coap_method(method), message_id, max_pdu_size);
 	if(message == nullptr) {
 		throw coap::exception("Message creation failed");
 	}
@@ -210,31 +221,31 @@ void session::send(method method, std::string const& uri, std::string const& dat
 			dynamic_buffer = std::make_unique<std::uint8_t[]>(buffer_size);
 			buffer = dynamic_buffer.get();
 		}
-		auto number_of_uri_components = coap_split_path(reinterpret_cast<std::uint8_t const*>(uri.c_str()), uri.size(), buffer, &buffer_size);
+		auto number_of_uri_components = ::coap_split_path(reinterpret_cast<std::uint8_t const*>(uri.c_str()), uri.size(), buffer, &buffer_size);
 		while(number_of_uri_components--) {
-			auto value = coap_opt_value(buffer);
+			auto value = ::coap_opt_value(buffer);
 			if(value == nullptr) {
 				throw coap::exception("Set message uri failed - value is null");
 			}
-			auto length = coap_opt_length(buffer);
-			auto option = coap_new_optlist(COAP_OPTION_URI_PATH, length, value);
+			auto length = ::coap_opt_length(buffer);
+			auto option = ::coap_new_optlist(COAP_OPTION_URI_PATH, length, value);
 			if(option == nullptr) {
 				throw coap::exception("Set message uri failed - optlist creation failed");
 			}
-			auto res = coap_insert_optlist(&optlist.value, option);
+			auto res = ::coap_insert_optlist(&optlist.value, option);
 			if(res != 1) {
 				throw coap::exception("Set message uri failed - optlist insert failed");
 			}
-			auto size = coap_opt_size(buffer);
+			auto size = ::coap_opt_size(buffer);
 			buffer += size;
 		}
-		auto res = coap_add_optlist_pdu(message, &optlist.value);
+		auto res = ::coap_add_optlist_pdu(message, &optlist.value);
 		if(res != 1) {
 			throw coap::exception("Set message uri failed - optlist add failed");
 		}
 	}
 	if(!data.empty()) {
-		auto res = coap_add_data(message, data.size(), reinterpret_cast<std::uint8_t const*>(data.data()));
+		auto res = ::coap_add_data(message, data.size(), reinterpret_cast<std::uint8_t const*>(data.data()));
 		if(res != 1) {
 			throw coap::exception("Set message data failed");
 		}
@@ -256,15 +267,11 @@ std::string session::process() {
 	if(response->content.empty()) {
 		auto response_class = COAP_RESPONSE_CLASS(response->code);
 		if(response_class != 2) {
-			auto error_message = std::to_string(response_class*100 + (response->code & 31));
-			auto code_phrase = coap_response_phrase(response->code);
-			if(code_phrase != nullptr) {
-				error_message += " ";
-				error_message += code_phrase;
-			}
+			auto error_message = response_code_description(response->code);
 			throw coap::exception(error_message);
 		}
 	}
+	logger::log("COAP response code: " + response_code_description(response->code));
 	logger::log("COAP response: " + response->content);
 	return response->content;
 }
@@ -274,25 +281,21 @@ void session::reconnect() {
 		throw coap::exception("No session to reconnect");
 	}
 	::coap_session_set_app_data(m_session, nullptr);
-	coap_address_t const* address = coap_session_get_addr_remote(m_session);
-	auto session = session_ptr(nullptr, ::coap_session_release);
+	coap_address_t address = *coap_session_get_addr_remote(m_session);
 	auto proto = ::coap_session_get_proto(m_session);
+	::coap_session_release(m_session);
+	m_session = nullptr;
 	switch(proto) {
 		case COAP_PROTO_UDP:
-			session = create_session(m_client, address);
+			m_session = create_session(m_client, &address).release();
 			break;
 		case COAP_PROTO_DTLS:
-		{
-			auto key = ::coap_session_get_psk_key(m_session);
-			if(key == nullptr || key->s == nullptr) {
-				throw coap::exception("Can not reconnect - invalid key");
-			}
-			session = create_session(m_client, address, m_identity.c_str(), key->s, key->length);
-		}
+			m_session = create_session(m_client, &address, m_identity.c_str(), m_key).release();
 			break;
 		default:
 			throw coap::exception("Can not reconnect - invalid session type");
 	}
-	::coap_session_release(m_session);
-	m_session = session.release();
+	if(m_session == nullptr) {
+		throw coap::exception("Can not reconnect - session creation failed");
+	}
 }

@@ -35,11 +35,12 @@ private:
 	enum class method { get, put };
 	void send(method method, std::string const& uri, std::string const& data);
 	std::string process();
-    void reconnect();
+	void reconnect();
 	
 	client&           m_client;
 	::coap_session_t* m_session = nullptr;
 	std::string const m_identity;
+	std::string const m_key;
 };
 
 }
