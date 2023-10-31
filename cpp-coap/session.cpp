@@ -271,8 +271,7 @@ std::string session::process() {
 			throw coap::exception(error_message);
 		}
 	}
-	logger::log("COAP response code: " + response_code_description(response->code));
-	logger::log("COAP response: " + response->content);
+	logger::log("COAP response [" + response_code_description(response->code) + "]: " + response->content);
 	return response->content;
 }
 
